@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sideMenuItems.forEach((item) => {
     item.addEventListener("click", () => {
+      if (item.dataset.link) {
+        window.location.href = item.dataset.link;
+        return;
+      }
       sideMenuItems.forEach((i) => i.classList.remove("active"));
       item.classList.add("active");
       categoryTitle.textContent = item.dataset.category;
