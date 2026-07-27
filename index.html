@@ -13,60 +13,60 @@
       <img src="images/rogo2.png" alt="ICE CREAM 로고">
     </a>
 
-    <nav class="main-nav">
+    <nav class="main-nav" id="mainNav">
       <ul>
         <li class="nav-item">
           <a href="#">Menu</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="monthly.html">이달의 맛</a></li>
-              <li><a href="#">아이스크림</a></li>
-              <li><a href="#">프리팩</a></li>
-              <li><a href="#">아이스크림케이크</a></li>
-              <li><a href="#">디저트</a></li>
-              <li><a href="#">음료</a></li>
-              <li><a href="#">커피</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="monthly.html">이달의 맛</a>
+              <a href="#">아이스크림</a>
+              <a href="#">프리팩</a>
+              <a href="#">아이스크림케이크</a>
+              <a href="#">디저트</a>
+              <a href="#">음료</a>
+              <a href="#">커피</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">BR Play</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">이벤트</a></li>
-              <li><a href="#">프로모션</a></li>
-              <li><a href="#">SNS</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">이벤트</a>
+              <a href="#">프로모션</a>
+              <a href="#">SNS</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">BR Story</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">브랜드 스토리</a></li>
-              <li><a href="#">뉴스룸</a></li>
-              <li><a href="#">채용정보</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">브랜드 스토리</a>
+              <a href="#">뉴스룸</a>
+              <a href="#">채용정보</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">Delivery/Store</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">매장찾기</a></li>
-              <li><a href="#">배달주문</a></li>
-              <li><a href="#">포장주문</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">매장찾기</a>
+              <a href="#">배달주문</a>
+              <a href="#">포장주문</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">배라앱</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">앱 다운로드</a></li>
-              <li><a href="#">멤버십</a></li>
-              <li><a href="#">쿠폰함</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">앱 다운로드</a>
+              <a href="#">멤버십</a>
+              <a href="#">쿠폰함</a>
+            </div>
           </div>
         </li>
       </ul>
@@ -88,237 +88,235 @@
           <circle cx="12" cy="7" r="4"></circle>
         </svg>
       </button>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
 
   <main class="site-main">
     <div class="menu-layout">
 
-      <aside class="side-menu">
-        <ul>
-          <li class="active" data-category="이달의 맛" data-link="monthly.html">이달의 맛</li>
-          <li data-category="아이스크림">아이스크림</li>
-          <li data-category="프리팩">프리팩</li>
-          <li data-category="아이스크림케이크">아이스크림케이크</li>
-          <li data-category="디저트">디저트</li>
-          <li data-category="음료">음료</li>
-          <li data-category="커피">커피</li>
-        </ul>
-      </aside>
+      <!-- Filled by js/category-nav.js — the single shared source for this
+           menu, used identically on the list page (here) and the detail
+           page (monthly.html). -->
+      <aside class="side-menu" id="categoryNav"></aside>
 
       <section class="product-section">
         <h2 class="category-title">이달의 맛</h2>
 
         <div class="product-grid">
           <div class="product-card">
-            <div class="product-image" style="--pastel:#E3E7FD;">
+            <div class="product-image" style="--pastel:#E3E7FD; --accent:#5C6EDB;">
               <img src="images/01.png" alt="고무고무 블루베리 마카롱">
-              <span class="fruit-tag">#블루베리</span>
+              <span class="fruit-tag">#블루베리요거트</span>
             </div>
             <p class="product-name">고무고무 블루베리 마카롱</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FDE2F3;">
+            <div class="product-image" style="--pastel:#FDE2F3; --accent:#D94FA8;">
               <img src="images/02.png" alt="쵸파의 코튼캔디 크런치">
               <span class="fruit-tag">#코튼캔디</span>
             </div>
             <p class="product-name">쵸파의 코튼캔디 크런치</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FFF6D9;">
+            <div class="product-image" style="--pastel:#FFF6D9; --accent:#D9A400;">
               <img src="images/03.png" alt="트로피컬 콜라다">
-              <span class="fruit-tag">#파인애플</span>
+              <span class="fruit-tag">#파인애플 #망고 #코코넛 #라임</span>
             </div>
             <p class="product-name">트로피컬 콜라다</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#DCF3FF;">
-              <img src="images/04.png" alt="블루 서퍼 비치">
-              <span class="fruit-tag">#블루레몬</span>
-            </div>
-            <p class="product-name">블루 서퍼 비치</p>
-          </div>
-          <div class="product-card">
-            <div class="product-image" style="--pastel:#FFF9E8;">
-              <img src="images/05.png" alt="훌라훌라 코코넛">
-              <span class="fruit-tag">#코코넛</span>
+            <div class="product-image" style="--pastel:#DCF3FF; --accent:#1E9FD1;">
+              <img src="images/04.png" alt="훌라훌라 코코넛">
+              <span class="fruit-tag">#코코넛 #파인애플</span>
             </div>
             <p class="product-name">훌라훌라 코코넛</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#EFE1D6;">
-              <img src="images/06.png" alt="단짠팝팝 초코해변">
-              <span class="fruit-tag">#초콜릿</span>
+            <div class="product-image" style="--pastel:#FFF9E8; --accent:#C99A3E;">
+              <img src="images/05.png" alt="단짠팝팝 초코해변">
+              <span class="fruit-tag">#단짠팝팝</span>
             </div>
             <p class="product-name">단짠팝팝 초코해변</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#E8F7DF;">
-              <img src="images/07.png" alt="버즈의 애플 리치 빔">
-              <span class="fruit-tag">#애플</span>
+            <div class="product-image" style="--pastel:#EFE1D6; --accent:#A05A2C;">
+              <img src="images/06.png" alt="버즈의 애플 리치 빔">
+              <span class="fruit-tag">#버즈</span>
             </div>
             <p class="product-name">버즈의 애플 리치 빔</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FFE9D6;">
-              <img src="images/08.png" alt="우디의 후르츠 어드벤처">
-              <span class="fruit-tag">#트로피컬후르츠</span>
+            <div class="product-image" style="--pastel:#E8F7DF; --accent:#4C9A4A;">
+              <img src="images/07.png" alt="우디의 후르츠 어드벤처">
+              <span class="fruit-tag">#우디</span>
             </div>
             <p class="product-name">우디의 후르츠 어드벤처</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#EAF2D7;">
-              <img src="images/09.png" alt="두바이에서 온 엄마는 외계인">
-              <span class="fruit-tag">#피스타치오</span>
+            <div class="product-image" style="--pastel:#FFE9D6; --accent:#C9702E;">
+              <img src="images/08.png" alt="두바이에서 온 엄마는 외계인">
+              <span class="fruit-tag">#리얼카다이프 #초콜릿쫀떡볼</span>
             </div>
             <p class="product-name">두바이에서 온 엄마는 외계인</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FFF0C4;">
-              <img src="images/10.png" alt="알폰소 망고">
+            <div class="product-image" style="--pastel:#EAF2D7; --accent:#8FAE4A;">
+              <img src="images/09.png" alt="알폰소 망고">
               <span class="fruit-tag">#망고</span>
             </div>
             <p class="product-name">알폰소 망고</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#F5E6FF;">
-              <img src="images/11.png" alt="레인보우 샤베트">
-              <span class="fruit-tag">#레인보우</span>
+            <div class="product-image" style="--pastel:#FFF0C4; --accent:#DBA000;">
+              <img src="images/10.png" alt="레인보우 샤베트">
+              <span class="fruit-tag">#파인애플 #오렌지 #라즈베리</span>
             </div>
             <p class="product-name">레인보우 샤베트</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#E4F3DA;">
-              <img src="images/12.png" alt="그린티">
-              <span class="fruit-tag">#그린티</span>
+            <div class="product-image" style="--pastel:#F5E6FF; --accent:#A855D9;">
+              <img src="images/11.png" alt="그린티">
+              <span class="fruit-tag">#녹차 #그린티</span>
             </div>
             <p class="product-name">그린티</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#EFE7E0;">
-              <img src="images/13.png" alt="오레오 쿠키 앤 밀크">
-              <span class="fruit-tag">#쿠키</span>
+            <div class="product-image" style="--pastel:#E4F3DA; --accent:#5C9A3E;">
+              <img src="images/12.png" alt="오레오 쿠키 앤 밀크">
+              <span class="fruit-tag">#오레오 #밀크</span>
             </div>
             <p class="product-name">오레오 쿠키 앤 밀크</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FFE3EC;">
-              <img src="images/14.png" alt="나는 딸기치오">
-              <span class="fruit-tag">#딸기</span>
+            <div class="product-image" style="--pastel:#EFE7E0; --accent:#8A6A4A;">
+              <img src="images/13.png" alt="나는 딸기치오">
+              <span class="fruit-tag">#딸기 #피스타치오</span>
             </div>
-            <p class="product-name">나는 딸기치오</p>
-          </div>
+              <p class="product-name">나는 딸기치오</p>
+            </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FFE7DC;">
-              <img src="images/15.png" alt="피치 요거트">
-              <span class="fruit-tag">#피치</span>
+            <div class="product-image" style="--pastel:#FFE3EC; --accent:#DB4A7C;">
+              <img src="images/14.png" alt="피치 요거트">
+              <span class="fruit-tag">#피치 #요거트</span>
             </div>
             <p class="product-name">피치 요거트</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#EFFAD4;">
-              <img src="images/16.png" alt="메롱 멜론">
+            <div class="product-image" style="--pastel:#FFE7DC; --accent:#D97840;">
+              <img src="images/15.png" alt="메롱 멜론">
               <span class="fruit-tag">#멜론</span>
             </div>
             <p class="product-name">메롱 멜론</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#DFF6EE;">
-              <img src="images/17.png" alt="애플민트">
-              <span class="fruit-tag">#민트</span>
+            <div class="product-image" style="--pastel:#EFFAD4; --accent:#8FB93E;">
+              <img src="images/16.png" alt="블루 서퍼 비치">
+              <span class="fruit-tag">#솔티 #바닐라 #카라멜 #초콜릿</span>
             </div>
-            <p class="product-name">애플민트</p>
+            <p class="product-name">블루 서퍼 비치</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FFF7CF;">
-              <img src="images/18.png" alt="(Lessly Edition) 바 베 바">
-              <span class="fruit-tag">#바나나</span>
+            <div class="product-image" style="--pastel:#DFF6EE; --accent:#2FA97F;">
+              <img src="images/17.png" alt="(Lessly Edition) 바 베 바">
+              <span class="fruit-tag">#바닐라 #딸기 #바닐라</span>
             </div>
             <p class="product-name">(Lessly Edition) 바 베 바</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#ECE1FA;">
-              <img src="images/19.png" alt="(Lessly Edition) 엄마는 외계인">
-              <span class="fruit-tag">#그레이프</span>
-            </div>
-            <p class="product-name">(Lessly Edition) 엄마는 외계인</p>
-          </div>
-          <div class="product-card">
-            <div class="product-image" style="--pastel:#FFE1EA;">
-              <img src="images/20.png" alt="사랑에 빠진 딸기">
-              <span class="fruit-tag">#딸기</span>
-            </div>
-            <p class="product-name">사랑에 빠진 딸기</p>
-          </div>
-          <div class="product-card">
-            <div class="product-image" style="--pastel:#FFF8EF;">
-              <img src="images/21.png" alt="소금 우유 아이스크림">
-              <span class="fruit-tag">#밀크</span>
-            </div>
-            <p class="product-name">소금 우유 아이스크림</p>
-          </div>
-          <div class="product-card">
-            <div class="product-image" style="--pastel:#E9DFF7;">
-              <img src="images/22.png" alt="엄마는 외계인">
-              <span class="fruit-tag">#그레이프</span>
+            <div class="product-image" style="--pastel:#FFF7CF; --accent:#D6A80F;">
+              <img src="images/18.png" alt="엄마는 외계인">
+              <span class="fruit-tag">#초콜릿 #초코볼</span>
             </div>
             <p class="product-name">엄마는 외계인</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#DFF3EA;">
-              <img src="images/23.png" alt="민트 초콜릿 칩">
-              <span class="fruit-tag">#민트초코</span>
+            <div class="product-image" style="--pastel:#ECE1FA; --accent:#8B4FD1;">
+              <img src="images/19.png" alt="사랑에 빠진 딸기">
+              <span class="fruit-tag">#딸기 #치즈 #크런치초콜릿</span>
+            </div>
+            <p class="product-name">사랑에 빠진 딸기</p>
+          </div>
+          <div class="product-card">
+            <div class="product-image" style="--pastel:#FFE1EA; --accent:#DB3D72;">
+              <img src="images/20.png" alt="민트 초콜릿 칩">
+              <span class="fruit-tag">#민트 #초콜릿 #민초</span>
             </div>
             <p class="product-name">민트 초콜릿 칩</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FFF3D6;">
-              <img src="images/24.png" alt="뉴욕 치즈 케이크">
-              <span class="fruit-tag">#치즈케이크</span>
+            <div class="product-image" style="--pastel:#FFF8EF; --accent:#C99048;">
+              <img src="images/21.png" alt="뉴욕 치즈케이크">
+              <span class="fruit-tag">#치즈 #치즈케이크</span>
             </div>
-            <p class="product-name">뉴욕 치즈 케이크</p>
+            <p class="product-name">뉴욕 치즈케이크</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FFE0E6;">
-              <img src="images/25.png" alt="체리쥬빌레">
+            <div class="product-image" style="--pastel:#E9DFF7; --accent:#7C4FC4;">
+              <img src="images/22.png" alt="체리쥬빌레">
               <span class="fruit-tag">#체리</span>
             </div>
             <p class="product-name">체리쥬빌레</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#E3E9FF;">
-              <img src="images/26.png" alt="슈팅스타">
-              <span class="fruit-tag">#스타</span>
+            <div class="product-image" style="--pastel:#DFF3EA; --accent:#2F9A6B;">
+              <img src="images/23.png" alt="슈팅스타">
+              <span class="fruit-tag">#톡톡 #팝핑캔디 #체리</span>
             </div>
             <p class="product-name">슈팅스타</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FFE4EC;">
-              <img src="images/27.png" alt="베리베리 스트로베리">
-              <span class="fruit-tag">#스트로베리</span>
+            <div class="product-image" style="--pastel:#FFF3D6; --accent:#D9A93E;">
+              <img src="images/24.png" alt="베리베리 스트로베리">
+              <span class="fruit-tag">#스트로베리 #새콤상큼</span>
             </div>
             <p class="product-name">베리베리 스트로베리</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#FFF7E8;">
-              <img src="images/28.png" alt="31요거트">
+            <div class="product-image" style="--pastel:#FFE0E6; --accent:#D6355F;">
+              <img src="images/25.png" alt="31요거트">
               <span class="fruit-tag">#요거트</span>
             </div>
             <p class="product-name">31요거트</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#F3E9DC;">
-              <img src="images/29.png" alt="바람과 함께 사라지다">
-              <span class="fruit-tag">#바닐라</span>
+            <div class="product-image" style="--pastel:#E3E9FF; --accent:#5468D6;">
+              <img src="images/26.png" alt="바람과 함께 사라지다">
+              <span class="fruit-tag">#블루베리 #스트로베리 #치즈케이크</span>
             </div>
             <p class="product-name">바람과 함께 사라지다</p>
           </div>
           <div class="product-card">
-            <div class="product-image" style="--pastel:#EDF4DC;">
-              <img src="images/30.png" alt="피스타치오 아몬드">
-              <span class="fruit-tag">#피스타치오</span>
+            <div class="product-image" style="--pastel:#FFE4EC; --accent:#DB4785;">
+              <img src="images/27.png" alt="피스타치오 아몬드">
+              <span class="fruit-tag">#피스타치오 #아몬드</span>
             </div>
             <p class="product-name">피스타치오 아몬드</p>
+          </div>
+          <div class="product-card">
+            <div class="product-image" style="--pastel:#FFF7E8; --accent:#C99555;">
+              <img src="images/28.png" alt="초콜릿 무스">
+              <span class="fruit-tag">#초콜릿</span>
+            </div>
+            <p class="product-name">초콜릿 무스</p>
+          </div>
+          <div class="product-card">
+            <div class="product-image" style="--pastel:#F3E9DC; --accent:#A9764A;">
+              <img src="images/29.png" alt="자모카 아몬드 훠지">
+              <span class="fruit-tag">#모카 #초콜릿</span>
+            </div>
+            <p class="product-name">자모카 아몬드 훠지</p>
+          </div>
+          <div class="product-card">
+            <div class="product-image" style="--pastel:#EDF4DC; --accent:#7FA050;">
+              <img src="images/30.png" alt="아몬드 봉봉">
+              <span class="fruit-tag">#아몬드 #초콜릿</span>
+            </div>
+            <p class="product-name">아몬드 봉봉</p>
           </div>
         </div>
       </section>
@@ -346,6 +344,8 @@
   </div>
 
   <script src="js/nav-dropdown.js"></script>
+  <script src="js/mobile-nav.js"></script>
+  <script src="js/category-nav.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

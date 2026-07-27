@@ -5,12 +5,51 @@
   font-display: swap;
 }
 
+/*
+  Responsive strategy
+  --------------------------------------------------------------------------
+  Instead of tuning every element's size at a handful of fixed breakpoints,
+  the root font-size itself scales fluidly with the viewport (formula below),
+  and almost every size in this file is expressed in `rem`. Because `rem` is
+  relative to the root, every element shrinks together, proportionally, as
+  one system — which is what keeps this file from needing a media query per
+  property. A few properties (marked below) get their own `clamp()` because
+  they shouldn't track plain text scaling 1:1 (e.g. the logo's left margin
+  was a large fixed desktop offset, not something that should barely move).
+  Grid columns use `repeat(auto-fit, minmax(...))` so the column count
+  (5 → 1) falls out of available width automatically, with no breakpoint at
+  all. `.modal-box` / `.detail-hero` stack on narrow screens via flex-wrap +
+  flex-basis, again with no breakpoint. The things that genuinely can't be
+  done with fluid CSS alone — swapping the hover dropdown nav for a tap-open
+  drawer (992px), and giving the category menu's last-resort text wrap a
+  clean shape (576px) — are real layout-mode changes, not just resizes, so
+  they're the only two `@media` blocks in this file.
+  --------------------------------------------------------------------------
+*/
+html {
+  /* 16px at ≥1400px viewports (desktop, unchanged from the original design)
+     down to 14px at ≤400px, interpolated linearly in between. Every `rem`
+     value below rides this single curve instead of being tuned separately. */
+  font-size: clamp(14px, calc(14px + (100vw - 400px) / 500), 16px);
+}
+
 :root {
   --header-pink: #F986BD;
   --nav-white: #FFFFFF;
   --nav-hover-pink: #F55974;
   --main-white: #FFFFFF;
   --side-pink: #F986BD;
+
+  /* Header geometry, shared so the header and its children stay in sync.
+     header-pad-x and logo-margin get their own clamp(): at 120px/48px they
+     were desktop-only decorative offsets, way too large to leave mostly
+     intact under the mild root-font shrink alone — they need to collapse
+     much further on small screens. logo-size/nav-margin scale fine just
+     riding the root rem cascade. */
+  --header-pad-x: clamp(1rem, 4vw, 3rem);
+  --logo-margin: clamp(1rem, 8vw, 7.5rem);
+  --logo-size: clamp(3rem, 6vw, 5.3125rem);
+  --nav-margin: 4.375rem;
 }
 
 * {
@@ -23,6 +62,10 @@ body {
   font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   background-color: var(--main-white);
   color: #333333;
+}
+
+body.no-scroll {
+  overflow: hidden;
 }
 
 a {
@@ -41,48 +84,54 @@ ul {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 100px;
-  padding: 0 48px;
+  height: 6.25rem;
+  padding: 0 var(--header-pad-x);
   background-color: var(--header-pink);
+  transition: height 0.3s ease, padding 0.3s ease;
 }
 
 .logo {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  margin-left: 120px;
+  margin-left: var(--logo-margin);
+  transition: margin-left 0.3s ease;
 }
 
 .logo img {
-  height: 85px;
+  height: var(--logo-size);
   width: auto;
   object-fit: contain;
+  transition: height 0.3s ease;
 }
 
 .main-nav {
   height: 100%;
   display: flex;
   align-items: stretch;
-  margin-left: 70px;
+  margin-left: var(--nav-margin);
+  transition: margin-left 0.3s ease, transform 0.35s ease, opacity 0.35s ease;
 }
 
 .main-nav ul {
   display: flex;
   align-items: stretch;
-  gap: 44px;
+  gap: 2.75rem;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .main-nav a {
   font-family: 'Juache', sans-serif;
   color: var(--nav-white);
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 600;
-  padding: 8px 2px;
+  padding: 0.5rem 0.125rem;
+  white-space: nowrap;
   transition: color 0.2s ease;
 }
 
@@ -90,103 +139,160 @@ ul {
   color: var(--nav-hover-pink);
 }
 
-/* Nav Dropdown */
-.nav-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  /* 48px header padding + 120px logo margin + 85px logo width + 70px nav margin */
-  padding: 28px 48px 28px 323px;
-  background-color: #ffffff;
-  border-top: 1px solid #f2f2f2;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
-  z-index: 150;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
+/* Hamburger (drawer trigger); hidden until the ≤992px breakpoint */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3125rem;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
-.nav-item.is-open .nav-dropdown {
-  max-height: 140px;
+.hamburger-btn span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--nav-white);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger-btn.is-active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.is-active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.is-active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Dims the page behind the drawer; defined once here (inert/transparent
+   above 992px) rather than inside the media query, since its own state
+   (.is-visible) already gates it. */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 180;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.drawer-overlay.is-visible {
   opacity: 1;
   pointer-events: auto;
 }
 
-.nav-dropdown ul {
+/* Nav Dropdown — back to one per nav item (a child of that .nav-item,
+   which is position:relative), so it's inherently left-aligned to that
+   item's own start position with no manual offset math. .nav-item already
+   spans the full header height (.main-nav's align-items:stretch), so
+   top:100% here lands exactly at the header's bottom edge, flush, with no
+   gap between the link and the dropdown for the mouse to fall through. */
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: max-content;
+  max-width: 90vw;
+  background-color: #ffffff;
+  border-top: 1px solid #eee;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+  padding: 1.5rem 2rem;
+  z-index: 150;
+  /* visibility (not display:none) so it stays in the a11y/hit-testing tree
+     long enough to fade, but still un-tabbable and unclickable while
+     hidden. Transitioning visibility is a discrete flip: it switches to
+     "visible" at the START of the transition when opening, and to
+     "hidden" only at the END when closing — exactly the timing needed
+     here, no JS required for it. */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav-item.is-open .nav-dropdown {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-dropdown-inner {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 12px;
+  gap: 1.5rem;
 }
 
-/* Stagger animation: items rise + fade in one after another as the
-   dropdown opens, but drop out together (no delay) when it closes. */
-.nav-dropdown li {
+/* Stagger animation: each link rises + fades in a beat after the last
+   (0/60/120…ms). The delays are set unconditionally (not nested under
+   .is-open), so the exact same per-item timing applies symmetrically on
+   the way out — links disappear one after another too, not all at once. */
+.nav-dropdown a {
+  color: #555555;
+  font-size: 0.9375rem;
+  font-weight: 600;
   white-space: nowrap;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-  transition-delay: 0s;
+  transform: translateY(15px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.nav-item.is-open .nav-dropdown li {
+.nav-item.is-open .nav-dropdown a {
   opacity: 1;
   transform: translateY(0);
 }
 
-.nav-item.is-open .nav-dropdown li:nth-child(1) { transition-delay: 0ms; }
-.nav-item.is-open .nav-dropdown li:nth-child(2) { transition-delay: 80ms; }
-.nav-item.is-open .nav-dropdown li:nth-child(3) { transition-delay: 160ms; }
-.nav-item.is-open .nav-dropdown li:nth-child(4) { transition-delay: 240ms; }
-.nav-item.is-open .nav-dropdown li:nth-child(5) { transition-delay: 320ms; }
-.nav-item.is-open .nav-dropdown li:nth-child(6) { transition-delay: 400ms; }
-.nav-item.is-open .nav-dropdown li:nth-child(7) { transition-delay: 480ms; }
-
-.nav-dropdown a {
-  display: block;
-  color: #555555;
-  font-family: inherit;
-  font-size: 17px;
-  font-weight: 600;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
+.nav-dropdown a:nth-child(1) { transition-delay: 0ms; }
+.nav-dropdown a:nth-child(2) { transition-delay: 60ms; }
+.nav-dropdown a:nth-child(3) { transition-delay: 120ms; }
+.nav-dropdown a:nth-child(4) { transition-delay: 180ms; }
+.nav-dropdown a:nth-child(5) { transition-delay: 240ms; }
+.nav-dropdown a:nth-child(6) { transition-delay: 300ms; }
+.nav-dropdown a:nth-child(7) { transition-delay: 360ms; }
 
 .nav-dropdown a:hover {
   color: var(--nav-hover-pink);
-  background-color: rgba(249, 134, 189, 0.12);
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 1.125rem;
   margin-left: auto;
-  margin-right: 80px;
+  margin-right: clamp(1rem, 6vw, 5rem);
   flex-shrink: 0;
+  transition: margin-right 0.3s ease;
 }
 
 .search-box {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
   background-color: transparent;
   border-bottom: 1px solid #FFFFFF;
-  padding: 10px 6px;
+  padding: 0.625rem 0.375rem;
 }
 
 .search-box input {
-  width: 220px;
+  width: clamp(6rem, 15vw, 13.75rem);
   background: transparent;
   border: none;
   outline: none;
   color: var(--nav-white);
-  font-size: 16px;
+  font-size: 1rem;
+  transition: width 0.3s ease;
 }
 
 .search-box input::placeholder {
@@ -214,52 +320,71 @@ ul {
 /* Main */
 .site-main {
   background-color: var(--main-white);
-  padding: 48px;
+  padding: 3rem;
 }
 
 .menu-layout {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
-  max-width: 1600px;
+  gap: 2rem;
+  max-width: 100rem;
   margin: 0 auto;
 }
 
-/* Side Menu */
+/* Category Menu */
 .side-menu {
   width: 100%;
   position: sticky;
-  top: 90px;
+  top: 5.625rem;
   background-color: var(--main-white);
   z-index: 10;
-  padding: 12px 0;
+  padding: 0.75rem 0;
 }
 
+/* Padding/gap/radius/font-size each get their own clamp() (independent of
+   the root rem cascade, which alone is too mild) so the button's actual
+   rendered size — not just flex-shrink squeezing a still-large box — gets
+   smaller as the viewport narrows. flex-wrap only kicks in once every
+   button is already down at its clamp() floor and still can't fit. */
 .side-menu ul {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: clamp(0.375rem, 1vw, 0.625rem);
 }
 
+/* The items are rendered as real <a href> links (js/category-nav.js) so
+   the detail page can link back to a specific category, not just plain
+   <li> text — so the visual "button" styling targets the link itself,
+   with .side-menu li only as an unstyled layout wrapper. */
 .side-menu li {
+  min-width: 0;
+}
+
+.side-menu a {
+  display: block;
   color: var(--side-pink);
-  font-size: 16px;
+  font-size: clamp(0.6875rem, 0.9vw, 1rem);
   font-weight: 700;
   text-align: center;
-  padding: 14px 32px;
-  border-radius: 4px;
+  padding: clamp(0.375rem, 0.8vw, 0.875rem) clamp(0.625rem, 1.5vw, 2rem);
+  border-radius: clamp(0.125rem, 0.6vw, 0.25rem);
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, padding 0.3s ease, font-size 0.3s ease;
+  /* Never wrap to a 2nd line — shrink text/box first; only the longest
+     label ("아이스크림케이크") should ever need the ellipsis fallback. */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.side-menu li:hover {
+.side-menu a:hover {
   background-color: rgba(249, 134, 189, 0.15);
 }
 
-.side-menu li.active {
+.side-menu li.active a {
   background-color: var(--side-pink);
   color: var(--nav-white);
 }
@@ -270,37 +395,44 @@ ul {
 }
 
 .category-title {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--nav-hover-pink);
-  margin-bottom: 28px;
+  margin-bottom: 1.75rem;
   text-align: center;
 }
 
+/* 17rem is tuned so this auto-fit grid lands on 5/4/3/2/1 columns at
+   roughly the reference widths (100/75/62/48/30rem ≈ 1600/1200/992/768/480px)
+   without hardcoding a single grid-template-columns per breakpoint. */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 260px);
-  justify-content: center;
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 1.5rem;
 }
 
 .product-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
+  width: 100%;
+  /* Grid/flex items default to min-width:auto (their content's intrinsic
+     width), which silently defeats text-overflow:ellipsis below — this
+     lets the card (and its title) actually shrink past that. */
+  min-width: 0;
 }
 
 .product-image {
   position: relative;
-  width: 260px;
-  height: 210px;
-  border-radius: 24px;
+  width: 100%;
+  aspect-ratio: 260 / 210;
+  border-radius: 1.5rem;
   background: transparent;
   border: 1px solid #F2F2F2;
   overflow: hidden;
   cursor: pointer;
-  transition: background-color 0.40s ease, border-color 0.40s ease;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 .product-image:hover {
@@ -331,11 +463,14 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--nav-hover-pink);
+  font-size: 1.25rem;
+  font-weight: 600;
+  /* Each card sets --accent (alongside --pastel) inline to a deeper shade
+     of its own hover-background color, so the tag text matches that
+     card's image/pastel pairing instead of one fixed color for all 30. */
+  color: var(--accent, var(--nav-hover-pink));
   opacity: 0;
-  transition: opacity 0.40s ease;
+  transition: opacity 0.4s ease;
   pointer-events: none;
 }
 
@@ -344,9 +479,16 @@ ul {
 }
 
 .product-name {
-  font-size: 14px;
+  font-size: clamp(0.6875rem, 0.9vw, 0.875rem);
   font-weight: 600;
   color: #444444;
+  text-align: center;
+  /* Card titles never wrap to a 2nd line — shrink font first, ellipsis
+     as the last resort for names that still don't fit. */
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Product Modal */
@@ -358,36 +500,40 @@ ul {
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 24px;
+  padding: 1.5rem;
 }
 
 .modal-overlay.open {
   display: flex;
 }
 
+/* flex-wrap + flex-basis (below) stacks the image above the text once the
+   row can no longer fit both at a readable width — that reflow happens
+   naturally as the viewport narrows, so .modal-box needs no breakpoint. */
 .modal-box {
   position: relative;
   display: flex;
-  gap: 40px;
+  flex-wrap: wrap;
+  gap: 2.5rem;
   width: 100%;
-  max-width: 900px;
+  max-width: 56.25rem;
   background-color: #FFFFFF;
-  border-radius: 28px;
-  padding: 56px;
+  border-radius: 1.75rem;
+  padding: 3.5rem;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
 }
 
 .modal-close {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 44px;
-  height: 44px;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border: none;
   border-radius: 50%;
   background-color: transparent;
   color: #999999;
-  font-size: 28px;
+  font-size: 1.75rem;
   line-height: 1;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -399,10 +545,10 @@ ul {
 }
 
 .modal-image {
-  flex-shrink: 0;
-  width: 340px;
-  height: 340px;
-  border-radius: 24px;
+  flex: 1 1 21.25rem;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 1.5rem;
   border: 1px solid #F2F2F2;
   overflow: hidden;
 }
@@ -414,20 +560,22 @@ ul {
 }
 
 .modal-info {
+  flex: 1 1 16rem;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
   justify-content: center;
 }
 
 .modal-fruit {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--side-pink);
 }
 
 .modal-name {
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 800;
   color: #333333;
 }
@@ -435,23 +583,23 @@ ul {
 .modal-details {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 16px;
+  gap: 0.5rem;
+  font-size: 1rem;
   color: #555555;
 }
 
 .modal-details li {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .modal-details strong {
   color: #333333;
-  min-width: 56px;
+  min-width: 3.5rem;
 }
 
 .modal-desc {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.7;
   color: #666666;
 }
@@ -459,37 +607,27 @@ ul {
 /* Detail Page */
 .detail-main {
   background-color: var(--main-white);
-  padding: 48px;
+  padding: 3rem;
 }
 
 .detail-container {
-  max-width: 1000px;
+  max-width: 62.5rem;
   margin: 0 auto;
 }
 
-.back-link {
-  display: inline-block;
-  margin-bottom: 32px;
-  color: var(--side-pink);
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.back-link:hover {
-  color: var(--nav-hover-pink);
-}
-
+/* Same no-breakpoint stacking trick as .modal-box above. */
 .detail-hero {
   display: flex;
-  gap: 48px;
+  flex-wrap: wrap;
+  gap: 3rem;
   align-items: flex-start;
 }
 
 .detail-image {
-  flex-shrink: 0;
-  width: 360px;
-  height: 480px;
-  border-radius: 28px;
+  flex: 1 1 22.5rem;
+  max-width: 100%;
+  aspect-ratio: 360 / 480;
+  border-radius: 1.75rem;
   border: 1px solid #F2F2F2;
   overflow: hidden;
 }
@@ -501,10 +639,12 @@ ul {
 }
 
 .detail-info {
+  flex: 1 1 16rem;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding-top: 8px;
+  gap: 0.875rem;
+  padding-top: 0.5rem;
 }
 
 .detail-badge {
@@ -512,20 +652,20 @@ ul {
   width: fit-content;
   background-color: var(--header-pink);
   color: #FFFFFF;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 4px;
+  padding: 0.375rem 1rem;
+  border-radius: 0.25rem;
 }
 
 .detail-fruit {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--side-pink);
 }
 
 .detail-name {
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 800;
   color: #333333;
 }
@@ -533,24 +673,24 @@ ul {
 .detail-specs {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 16px;
+  gap: 0.5rem;
+  font-size: 1rem;
   color: #555555;
-  margin: 8px 0;
+  margin: 0.5rem 0;
 }
 
 .detail-specs li {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .detail-specs strong {
   color: #333333;
-  min-width: 56px;
+  min-width: 3.5rem;
 }
 
 .detail-desc {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.7;
   color: #666666;
 }
@@ -558,55 +698,70 @@ ul {
 /* Home / Promotion Slider */
 .home-main {
   background-color: var(--main-white);
-  padding: 64px 48px 96px;
+  padding: 4rem 3rem 6rem;
+}
+
+/* Same max-width + centering as .promo-section below, so the banner and
+   the promotion content line up at exactly the same width. */
+.hero-banner {
+  max-width: 100rem;
+  margin: -80px auto 3rem;
+}
+
+.hero-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .promo-section {
-  max-width: 1600px;
+  max-width: 100rem;
   margin: 0 auto;
   text-align: center;
 }
 
 .promo-title {
-  font-size: 48px;
+  font-size: 3rem;
   font-weight: 800;
   color: var(--header-pink);
   letter-spacing: -1px;
 }
 
 .promo-subtitle {
-  margin-top: 12px;
-  font-size: 16px;
+  margin-top: 0.75rem;
+  font-size: 1rem;
   color: #666666;
 }
 
 .promo-slider {
-  margin-top: 56px;
+  margin-top: 3.5rem;
   overflow: hidden;
 }
 
 .promo-track {
   display: flex;
-  gap: 24px;
+  gap: 1.5rem;
   justify-content: flex-start;
   will-change: transform;
 }
 
+/* Percentage flex-basis already scales proportionally with the slider's
+   own width with no clamp/breakpoint needed — 5 cards + 4 gaps always
+   exactly fill the track, at any viewport size. */
 .promo-card {
-  /* 5 cards + 4 gaps always fit the track's own width exactly */
-  flex: 0 0 calc((100% - 4 * 24px) / 5);
+  flex: 0 0 calc((100% - 4 * 1.5rem) / 5);
   text-align: left;
 }
 
 .promo-visual {
   position: relative;
-  height: 220px;
-  border-radius: 120px 120px 16px 16px;
-  padding: 20px 22px;
+  height: clamp(10rem, 20vw, 13.75rem);
+  border-radius: clamp(5rem, 12vw, 7.5rem) clamp(5rem, 12vw, 7.5rem) 1rem 1rem;
+  padding: 1.25rem 1.375rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 0.625rem;
   color: #ffffff;
   overflow: hidden;
 }
@@ -644,31 +799,31 @@ ul {
 
 .promo-badge {
   align-self: flex-start;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 4px 12px;
+  padding: 0.25rem 0.75rem;
   border-radius: 999px;
   background-color: rgba(255, 255, 255, 0.18);
 }
 
 .promo-visual-text {
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
   line-height: 1.5;
 }
 
 .promo-date {
-  margin-top: 18px;
-  font-size: 14px;
+  margin-top: 1.125rem;
+  font-size: 0.875rem;
   font-weight: 700;
   color: #D98A4E;
 }
 
 .promo-desc {
-  margin-top: 8px;
-  padding-top: 12px;
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
   border-top: 1px solid #EDEDED;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: #555555;
 }
@@ -677,13 +832,13 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin-top: 32px;
+  gap: 0.625rem;
+  margin-top: 2rem;
 }
 
 .promo-dot {
-  width: 10px;
-  height: 10px;
+  width: 0.625rem;
+  height: 0.625rem;
   border-radius: 50%;
   background-color: #F5C6D9;
   background-image: none;
@@ -694,86 +849,118 @@ ul {
 }
 
 .promo-dot.is-active {
-  width: 60px;
-  height: 60px;
+  width: 3.75rem;
+  height: 3.75rem;
   border-radius: 0;
   background-color: transparent;
   background-image: url('images/icon-01.png');
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .site-header {
-    padding: 0 20px;
+/* ==========================================================================
+   Only two breakpoints in this file.
+   Everything above already flexes continuously (rem cascade, clamp(),
+   auto-fit/minmax grids, flex-wrap stacking, and — for the category menu
+   and card titles — shrink-before-wrap via clamp()+min-width:0+ellipsis).
+   Swapping the hover mega menu for a tap-to-open slide-in drawer (992px) is
+   a genuine interaction-model change rather than a resize, and the category
+   menu's 4-per-row wrap fallback (576px, below) only exists to give the
+   unavoidable last-resort wrap a clean shape instead of flex-wrap's default
+   ragged one — both are real layout-mode switches, not just more sizing.
+   ========================================================================== */
+@media (max-width: 992px) {
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .main-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(20rem, 85vw);
+    margin-left: 0;
+    /* Base .main-nav is a row flex container; stack instead so its <ul>
+       (and each item's now-static dropdown, further below) reliably fills
+       the drawer's width top to bottom. */
+    flex-direction: column;
+    align-items: stretch;
+    background-color: #ffffff;
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15);
+    z-index: 190;
+    transform: translateX(100%);
+    opacity: 0;
+    overflow-y: auto;
+  }
+
+  .main-nav.is-drawer-open {
+    transform: translateX(0);
+    opacity: 1;
   }
 
   .main-nav ul {
-    gap: 20px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 5.5rem 1.5rem 2rem;
   }
 
+  .nav-item {
+    align-items: stretch;
+    flex-direction: column;
+    border-bottom: 1px solid #F2F2F2;
+  }
+
+  .main-nav a {
+    color: #333333;
+    padding: 1rem 2rem 1rem 0;
+  }
+
+  /* Touch has no hover, so .nav-item.is-open never naturally happens —
+     each dropdown just becomes a plain, always-visible section stacked
+     right below its own link, still inside .main-nav's sliding/scrolling
+     drawer panel. No stagger needed once it's not actually animating in. */
   .nav-dropdown {
-    padding: 20px;
-  }
-
-  .nav-dropdown ul {
-    justify-content: center;
-  }
-
-  .site-main {
-    padding: 24px;
-  }
-
-  .menu-layout {
-    flex-direction: column;
-  }
-
-  .side-menu {
-    width: 100%;
     position: static;
+    width: auto;
+    max-width: none;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    padding: 0.5rem 1.5rem 1.25rem;
+    border-top: none;
+    box-shadow: none;
   }
 
+  .nav-dropdown-inner {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .nav-dropdown a {
+    color: #666666;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+}
+
+/* Category menu's wrap fallback, made explicit.
+   Below ~576px the 7 buttons no longer fit in one row even at their
+   clamp() floor (padding/font/gap all at minimum) — flex-wrap would still
+   handle that, but leaves a ragged, unevenly-sized last row. This forces a
+   tidy 4/3 split via a fixed flex-basis (25% minus its share of the gap);
+   staying on flex rather than switching to grid also means the trailing
+   3-item row gets centered for free — justify-content:center centers each
+   wrapped flex line independently, which CSS Grid's row-based placement
+   can't do without manually offsetting the last row's items. This is the
+   second and last breakpoint in the file, and only exists because "wrap"
+   needed its own explicit layout rather than flex-wrap's untouched default. */
+@media (max-width: 576px) {
   .side-menu ul {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: 1rem;
   }
 
-  .modal-box {
-    flex-direction: column;
-    padding: 28px;
-  }
-
-  .modal-image {
-    width: 100%;
-    height: 220px;
-  }
-
-  .detail-hero {
-    flex-direction: column;
-  }
-
-  .detail-image {
-    width: 100%;
-    height: 280px;
-  }
-
-  .home-main {
-    padding: 40px 20px 64px;
-  }
-
-  .promo-title {
-    font-size: 32px;
-  }
-
-  .promo-track {
-    justify-content: flex-start;
-  }
-
-  .promo-card {
-    flex: 0 0 240px;
-  }
-
-  .promo-visual {
-    height: 200px;
+  .side-menu li {
+    flex: 0 0 calc((100% - 3 * 1rem) / 4);
   }
 }

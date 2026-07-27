@@ -13,60 +13,60 @@
       <img src="images/rogo2.png" alt="ICE CREAM 로고">
     </a>
 
-    <nav class="main-nav">
+    <nav class="main-nav" id="mainNav">
       <ul>
         <li class="nav-item">
           <a href="index.html">Menu</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="monthly.html">이달의 맛</a></li>
-              <li><a href="index.html">아이스크림</a></li>
-              <li><a href="index.html">프리팩</a></li>
-              <li><a href="index.html">아이스크림케이크</a></li>
-              <li><a href="index.html">디저트</a></li>
-              <li><a href="index.html">음료</a></li>
-              <li><a href="index.html">커피</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="monthly.html">이달의 맛</a>
+              <a href="index.html">아이스크림</a>
+              <a href="index.html">프리팩</a>
+              <a href="index.html">아이스크림케이크</a>
+              <a href="index.html">디저트</a>
+              <a href="index.html">음료</a>
+              <a href="index.html">커피</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">BR Play</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">이벤트</a></li>
-              <li><a href="#">프로모션</a></li>
-              <li><a href="#">SNS</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">이벤트</a>
+              <a href="#">프로모션</a>
+              <a href="#">SNS</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">BR Story</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">브랜드 스토리</a></li>
-              <li><a href="#">뉴스룸</a></li>
-              <li><a href="#">채용정보</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">브랜드 스토리</a>
+              <a href="#">뉴스룸</a>
+              <a href="#">채용정보</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">Delivery/Store</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">매장찾기</a></li>
-              <li><a href="#">배달주문</a></li>
-              <li><a href="#">포장주문</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">매장찾기</a>
+              <a href="#">배달주문</a>
+              <a href="#">포장주문</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">배라앱</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">앱 다운로드</a></li>
-              <li><a href="#">멤버십</a></li>
-              <li><a href="#">쿠폰함</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">앱 다운로드</a>
+              <a href="#">멤버십</a>
+              <a href="#">쿠폰함</a>
+            </div>
           </div>
         </li>
       </ul>
@@ -88,32 +88,46 @@
           <circle cx="12" cy="7" r="4"></circle>
         </svg>
       </button>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <main class="detail-main">
-    <div class="detail-container">
-      <a class="back-link" href="index.html">&larr; 메뉴로 돌아가기</a>
+  <div class="drawer-overlay" id="drawerOverlay"></div>
 
-      <div class="detail-hero">
-        <div class="detail-image">
-          <img src="images/31.png" alt="이달의 맛 - 쵸파의 코튼캔디 크런치 & 고무고무 블루베리 마카롱">
-        </div>
-        <div class="detail-info">
-          <span class="detail-badge">이달의 맛</span>
-          <p class="detail-fruit">#블루베리</p>
-          <h1 class="detail-name">고무고무 블루베리 마카롱</h1>
-          <ul class="detail-specs">
-            <li><strong>중량</strong><span>-</span></li>
-            <li><strong>칼로리</strong><span>-</span></li>
-            <li><strong>가격</strong><span>-</span></li>
-          </ul>
-          <p class="detail-desc">이달의 맛 상세 설명이 들어갈 자리입니다.</p>
+  <main class="detail-main">
+    <div class="menu-layout">
+
+      <!-- Same shared component/markup as index.html's category nav — see
+           js/category-nav.js. Always shows "이달의 맛" active here, since
+           this page is that category's detail view. -->
+      <aside class="side-menu" id="categoryNav"></aside>
+
+      <div class="detail-container">
+        <div class="detail-hero">
+          <div class="detail-image">
+            <img src="images/31.png" alt="이달의 맛 - 쵸파의 코튼캔디 크런치 & 고무고무 블루베리 마카롱">
+          </div>
+          <div class="detail-info">
+            <span class="detail-badge">이달의 맛</span>
+            <p class="detail-fruit">#블루베리</p>
+            <h1 class="detail-name">고무고무 블루베리 마카롱</h1>
+            <ul class="detail-specs">
+              <li><strong>중량</strong><span>-</span></li>
+              <li><strong>칼로리</strong><span>-</span></li>
+              <li><strong>가격</strong><span>-</span></li>
+            </ul>
+            <p class="detail-desc">이달의 맛 상세 설명이 들어갈 자리입니다.</p>
+          </div>
         </div>
       </div>
+
     </div>
   </main>
 
   <script src="js/nav-dropdown.js"></script>
+  <script src="js/mobile-nav.js"></script>
+  <script src="js/category-nav.js"></script>
 </body>
 </html>

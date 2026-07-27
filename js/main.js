@@ -1,19 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const sideMenuItems = document.querySelectorAll(".side-menu li");
-  const categoryTitle = document.querySelector(".category-title");
-
-  sideMenuItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      if (item.dataset.link) {
-        window.location.href = item.dataset.link;
-        return;
-      }
-      sideMenuItems.forEach((i) => i.classList.remove("active"));
-      item.classList.add("active");
-      categoryTitle.textContent = item.dataset.category;
-    });
-  });
-
+  // Category menu clicks/active-state are handled by js/category-nav.js,
+  // which also renders this page's #categoryNav content.
   const modal = document.getElementById("productModal");
   const modalClose = document.getElementById("modalClose");
   const modalImage = document.getElementById("modalImage");

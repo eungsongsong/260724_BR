@@ -13,60 +13,60 @@
       <img src="images/rogo2.png" alt="ICE CREAM 로고">
     </a>
 
-    <nav class="main-nav">
+    <nav class="main-nav" id="mainNav">
       <ul>
         <li class="nav-item">
           <a href="index.html">Menu</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="monthly.html">이달의 맛</a></li>
-              <li><a href="index.html">아이스크림</a></li>
-              <li><a href="index.html">프리팩</a></li>
-              <li><a href="index.html">아이스크림케이크</a></li>
-              <li><a href="index.html">디저트</a></li>
-              <li><a href="index.html">음료</a></li>
-              <li><a href="index.html">커피</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="monthly.html">이달의 맛</a>
+              <a href="index.html">아이스크림</a>
+              <a href="index.html">프리팩</a>
+              <a href="index.html">아이스크림케이크</a>
+              <a href="index.html">디저트</a>
+              <a href="index.html">음료</a>
+              <a href="index.html">커피</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">BR Play</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">이벤트</a></li>
-              <li><a href="#">프로모션</a></li>
-              <li><a href="#">SNS</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">이벤트</a>
+              <a href="#">프로모션</a>
+              <a href="#">SNS</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">BR Story</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">브랜드 스토리</a></li>
-              <li><a href="#">뉴스룸</a></li>
-              <li><a href="#">채용정보</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">브랜드 스토리</a>
+              <a href="#">뉴스룸</a>
+              <a href="#">채용정보</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">Delivery/Store</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">매장찾기</a></li>
-              <li><a href="#">배달주문</a></li>
-              <li><a href="#">포장주문</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">매장찾기</a>
+              <a href="#">배달주문</a>
+              <a href="#">포장주문</a>
+            </div>
           </div>
         </li>
         <li class="nav-item">
           <a href="#">배라앱</a>
           <div class="nav-dropdown">
-            <ul>
-              <li><a href="#">앱 다운로드</a></li>
-              <li><a href="#">멤버십</a></li>
-              <li><a href="#">쿠폰함</a></li>
-            </ul>
+            <div class="nav-dropdown-inner">
+              <a href="#">앱 다운로드</a>
+              <a href="#">멤버십</a>
+              <a href="#">쿠폰함</a>
+            </div>
           </div>
         </li>
       </ul>
@@ -88,10 +88,19 @@
           <circle cx="12" cy="7" r="4"></circle>
         </svg>
       </button>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
   <main class="home-main">
+    <div class="hero-banner">
+      <img src="images/main.png" alt="배라 메인 배너">
+    </div>
+
     <section class="promo-section">
       <h2 class="promo-title">Promotion</h2>
       <p class="promo-subtitle">배라의 다양한 혜택과 이벤트를 만나보세요</p>
@@ -228,6 +237,7 @@
   </main>
 
   <script src="js/nav-dropdown.js"></script>
+  <script src="js/mobile-nav.js"></script>
   <script src="js/promo-slider.js"></script>
 </body>
 </html>
