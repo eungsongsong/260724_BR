@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BR Baskin Robbins</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="main.html">
+      <img src="images/rogo2.png" alt="ICE CREAM 로고">
+    </a>
+
+    <nav class="main-nav">
+      <ul>
+        <li class="nav-item">
+          <a href="index.html">Menu</a>
+          <div class="nav-dropdown">
+            <ul>
+              <li><a href="monthly.html">이달의 맛</a></li>
+              <li><a href="index.html">아이스크림</a></li>
+              <li><a href="index.html">프리팩</a></li>
+              <li><a href="index.html">아이스크림케이크</a></li>
+              <li><a href="index.html">디저트</a></li>
+              <li><a href="index.html">음료</a></li>
+              <li><a href="index.html">커피</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">BR Play</a>
+          <div class="nav-dropdown">
+            <ul>
+              <li><a href="#">이벤트</a></li>
+              <li><a href="#">프로모션</a></li>
+              <li><a href="#">SNS</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">BR Story</a>
+          <div class="nav-dropdown">
+            <ul>
+              <li><a href="#">브랜드 스토리</a></li>
+              <li><a href="#">뉴스룸</a></li>
+              <li><a href="#">채용정보</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">Delivery/Store</a>
+          <div class="nav-dropdown">
+            <ul>
+              <li><a href="#">매장찾기</a></li>
+              <li><a href="#">배달주문</a></li>
+              <li><a href="#">포장주문</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">배라앱</a>
+          <div class="nav-dropdown">
+            <ul>
+              <li><a href="#">앱 다운로드</a></li>
+              <li><a href="#">멤버십</a></li>
+              <li><a href="#">쿠폰함</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <input type="text" placeholder="검색어를 입력하세요" aria-label="검색어 입력">
+        <button class="search-btn" aria-label="검색">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
+      <button class="login-btn" aria-label="로그인">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="home-main">
+    <section class="promo-section">
+      <h2 class="promo-title">Promotion</h2>
+      <p class="promo-subtitle">배라의 다양한 혜택과 이벤트를 만나보세요</p>
+
+      <!--
+        7 images cycle through 5 visible arch cards, sliding one step left
+        every 0.5s. Real photos aren't ready yet, so each card points at a
+        placeholder path (images/promo-0N.png) — drop the files in later
+        and they'll appear automatically; until then the theme gradient
+        shows through. The last 5 <li>s duplicate the first 5 so the strip
+        can slide seamlessly back to the start (see js/promo-slider.js).
+      -->
+      <div class="promo-slider">
+        <ul class="promo-track">
+          <li class="promo-card">
+            <div class="promo-visual theme-1">
+              <img class="promo-img" src="images/promo-01.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">PROMOTION 01</span>
+              <p class="promo-visual-text">31데이 사전예약 시,<br>버라이어티팩 31% OFF</p>
+            </div>
+            <p class="promo-date">2026-07-24 ~ 2026-07-30</p>
+            <p class="promo-desc">31데이 사전예약 시, 버라이어티팩 31% OFF</p>
+          </li>
+          <li class="promo-card">
+            <div class="promo-visual theme-2">
+              <img class="promo-img" src="images/promo-02.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">PROMOTION 02</span>
+              <p class="promo-visual-text">31데이 사전예약 시,<br>하프갤론 5,500원 OFF</p>
+            </div>
+            <p class="promo-date">2026-07-24 ~ 2026-07-30</p>
+            <p class="promo-desc">31데이 사전예약 시, 하프갤론 5,500원 OFF!</p>
+          </li>
+          <li class="promo-card">
+            <div class="promo-visual theme-3">
+              <img class="promo-img" src="images/promo-03.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">PROMOTION 03</span>
+              <p class="promo-visual-text">성수기 시즌<br>야간 연장영업 안내</p>
+            </div>
+            <p class="promo-date">2026-07-17 ~ 2026-08-29</p>
+            <p class="promo-desc">성수기 시즌 야간 연장영업 점포 리스트</p>
+          </li>
+          <li class="promo-card">
+            <div class="promo-visual theme-4">
+              <img class="promo-img" src="images/promo-04.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">PROMOTION 04</span>
+              <p class="promo-visual-text">할인과 적립의 크로스 혜택!<br>30% 할인쿠폰 + 10% 적립까지!</p>
+            </div>
+            <p class="promo-date">2026-07-21 ~ 2026-07-26</p>
+            <p class="promo-desc">쿼터, 블라스트, 컵빙수 30% 할인쿠폰 +해피포인트 10% 적립</p>
+          </li>
+          <li class="promo-card">
+            <div class="promo-visual theme-5">
+              <img class="promo-img" src="images/promo-05.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">PROMOTION 05</span>
+              <p class="promo-visual-text">'원피스' 해적단 타프<br>사전예약 5천원 OFF</p>
+            </div>
+            <p class="promo-date">2026-07-16 ~ 2026-07-27</p>
+            <p class="promo-desc">'원피스' 해적단 타프 사전예약 5천원 OFF</p>
+          </li>
+          <li class="promo-card">
+            <div class="promo-visual theme-6">
+              <img class="promo-img" src="images/promo-06.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">COMING SOON</span>
+              <p class="promo-visual-text">새로운 프로모션을<br>준비 중입니다</p>
+            </div>
+            <p class="promo-date">준비 중</p>
+            <p class="promo-desc">새로운 프로모션 이미지가 곧 추가될 예정입니다.</p>
+          </li>
+          <li class="promo-card">
+            <div class="promo-visual theme-7">
+              <img class="promo-img" src="images/promo-07.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">COMING SOON</span>
+              <p class="promo-visual-text">다음 프로모션을<br>기대해주세요</p>
+            </div>
+            <p class="promo-date">준비 중</p>
+            <p class="promo-desc">다음 프로모션 이미지가 곧 추가될 예정입니다.</p>
+          </li>
+
+          <!-- clones of card 1–5, appended so the strip can loop seamlessly -->
+          <li class="promo-card" aria-hidden="true">
+            <div class="promo-visual theme-1">
+              <img class="promo-img" src="images/promo-01.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">PROMOTION 01</span>
+              <p class="promo-visual-text">31데이 사전예약 시,<br>버라이어티팩 31% OFF</p>
+            </div>
+            <p class="promo-date">2026-07-24 ~ 2026-07-30</p>
+            <p class="promo-desc">31데이 사전예약 시, 버라이어티팩 31% OFF</p>
+          </li>
+          <li class="promo-card" aria-hidden="true">
+            <div class="promo-visual theme-2">
+              <img class="promo-img" src="images/promo-02.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">PROMOTION 02</span>
+              <p class="promo-visual-text">31데이 사전예약 시,<br>하프갤론 5,500원 OFF</p>
+            </div>
+            <p class="promo-date">2026-07-24 ~ 2026-07-30</p>
+            <p class="promo-desc">31데이 사전예약 시, 하프갤론 5,500원 OFF!</p>
+          </li>
+          <li class="promo-card" aria-hidden="true">
+            <div class="promo-visual theme-3">
+              <img class="promo-img" src="images/promo-03.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">PROMOTION 03</span>
+              <p class="promo-visual-text">성수기 시즌<br>야간 연장영업 안내</p>
+            </div>
+            <p class="promo-date">2026-07-17 ~ 2026-08-29</p>
+            <p class="promo-desc">성수기 시즌 야간 연장영업 점포 리스트</p>
+          </li>
+          <li class="promo-card" aria-hidden="true">
+            <div class="promo-visual theme-4">
+              <img class="promo-img" src="images/promo-04.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">PROMOTION 04</span>
+              <p class="promo-visual-text">할인과 적립의 크로스 혜택!<br>30% 할인쿠폰 + 10% 적립까지!</p>
+            </div>
+            <p class="promo-date">2026-07-21 ~ 2026-07-26</p>
+            <p class="promo-desc">쿼터, 블라스트, 컵빙수 30% 할인쿠폰 +해피포인트 10% 적립</p>
+          </li>
+          <li class="promo-card" aria-hidden="true">
+            <div class="promo-visual theme-5">
+              <img class="promo-img" src="images/promo-05.png" alt="" onerror="this.remove()">
+              <span class="promo-badge">PROMOTION 05</span>
+              <p class="promo-visual-text">'원피스' 해적단 타프<br>사전예약 5천원 OFF</p>
+            </div>
+            <p class="promo-date">2026-07-16 ~ 2026-07-27</p>
+            <p class="promo-desc">'원피스' 해적단 타프 사전예약 5천원 OFF</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="promo-dots" aria-hidden="true">
+        <span class="promo-dot is-active"></span>
+        <span class="promo-dot"></span>
+        <span class="promo-dot"></span>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/nav-dropdown.js"></script>
+  <script src="js/promo-slider.js"></script>
+</body>
+</html>

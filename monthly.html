@@ -9,17 +9,66 @@
 <body>
 
   <header class="site-header">
-    <div class="logo">
-      <img src="images/32.jpg" alt="ICE CREAM 로고">
-    </div>
+    <a class="logo" href="main.html">
+      <img src="images/rogo2.png" alt="ICE CREAM 로고">
+    </a>
 
     <nav class="main-nav">
       <ul>
-        <li><a href="index.html">Menu</a></li>
-        <li><a href="#">BR Play</a></li>
-        <li><a href="#">BR Story</a></li>
-        <li><a href="#">Delivery/Store</a></li>
-        <li><a href="#">배라앱</a></li>
+        <li class="nav-item">
+          <a href="index.html">Menu</a>
+          <div class="nav-dropdown">
+            <ul>
+              <li><a href="monthly.html">이달의 맛</a></li>
+              <li><a href="index.html">아이스크림</a></li>
+              <li><a href="index.html">프리팩</a></li>
+              <li><a href="index.html">아이스크림케이크</a></li>
+              <li><a href="index.html">디저트</a></li>
+              <li><a href="index.html">음료</a></li>
+              <li><a href="index.html">커피</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">BR Play</a>
+          <div class="nav-dropdown">
+            <ul>
+              <li><a href="#">이벤트</a></li>
+              <li><a href="#">프로모션</a></li>
+              <li><a href="#">SNS</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">BR Story</a>
+          <div class="nav-dropdown">
+            <ul>
+              <li><a href="#">브랜드 스토리</a></li>
+              <li><a href="#">뉴스룸</a></li>
+              <li><a href="#">채용정보</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">Delivery/Store</a>
+          <div class="nav-dropdown">
+            <ul>
+              <li><a href="#">매장찾기</a></li>
+              <li><a href="#">배달주문</a></li>
+              <li><a href="#">포장주문</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#">배라앱</a>
+          <div class="nav-dropdown">
+            <ul>
+              <li><a href="#">앱 다운로드</a></li>
+              <li><a href="#">멤버십</a></li>
+              <li><a href="#">쿠폰함</a></li>
+            </ul>
+          </div>
+        </li>
       </ul>
     </nav>
 
@@ -65,5 +114,6 @@
     </div>
   </main>
 
+  <script src="js/nav-dropdown.js"></script>
 </body>
 </html>
